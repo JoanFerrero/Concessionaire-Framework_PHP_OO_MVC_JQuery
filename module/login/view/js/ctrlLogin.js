@@ -17,7 +17,7 @@ function button_login(){
 	$('#login').on('click', function(e) {
         e.preventDefault();
         login();
-    }); 
+    });
 }
 
 function login(){

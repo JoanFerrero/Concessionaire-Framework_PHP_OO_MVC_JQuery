@@ -26,6 +26,7 @@ function register(){
         ajaxPromise('index.php?module=login&op=register', 
         'POST', 'JSON', data)    
         .then(function(result) {
+            console.log(result);
             if(result == "error"){		
                 $("#error_email").html('El email o usuario ya esta registrado');
             }else{

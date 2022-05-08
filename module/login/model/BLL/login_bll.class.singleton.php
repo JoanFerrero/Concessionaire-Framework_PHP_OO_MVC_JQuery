@@ -31,7 +31,7 @@
 							 'token' => $result, 
 							 'toEmail' => $args[1]];
 				$email = json_encode(mail::send_email($message), true);
-				return;
+				return $message;
 			}else{
 				return "fail";
 			}
@@ -50,6 +50,34 @@
 				}
 			}
 			return "error";
+		}
+
+		public function get_login_SL_BLL($args) {
+			$user = $this -> dao -> select_user_email($this->db, $args);
+			if ($user) {
+				$jwt = jwt_process::encode($user[0]['username'], $user[0]['id_user']);
+				$_SESSION['user'] = $user[0]['username'];
+				$_SESSION['tiempo'] = time();
+				return $jwt;
+			}
+			return "error";
+		}
+
+		public function get_social_login_BLL($args) {
+			$username = $args[0];
+			$email = $args[1];
+			$id_user = $args[2];
+			
+			if(!$this -> dao ->register_email($this ->db, $email)){
+				if ($this -> dao -> insert_social_login($this->db, $username, $email, $id_user)){
+					$_SESSION['user'] = $username;
+					$_SESSION['tiempo'] = time();
+					$jwt = jwt_process::encode($username, $id_user);
+					return $jwt;
+				}
+			} else {
+				return 'error';
+			}
 		}
 
 		public function get_data_user_BLL($args) {
@@ -109,5 +137,24 @@
 
 		public function get_register_email_BLL($args) {
 			return $this -> dao -> count_register_email($this->db, $args);
+		}
+
+		public function get_email_recover_BLL($args) {
+			if($args){
+				$message = [ 'type' => 'recover', 
+							 'token' => $args, 
+							 'toEmail' => $args];
+				$email = json_encode(mail::send_email($message), true);
+				return $email;
+			}else{
+				return "fail";
+			}
+		}
+
+		public function get_new_password_BLL($args) {
+			$hashed_pass = password_hash($args[0], PASSWORD_DEFAULT, ['cost' => 6]);
+			$token = common::generate_Token_secure(20);
+			$this -> dao -> update_recovery($this ->db, $args[1], $hashed_pass, $token);
+			return $token;
 		}
     }

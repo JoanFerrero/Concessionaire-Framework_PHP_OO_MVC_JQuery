@@ -7,14 +7,26 @@
         function view_register() {
             common::load_view('top_page_login.html', VIEW_PATH_LOGIN . 'register.html');
         }
+
+        function view_recover(){
+            common::load_view('top_page_login.html', VIEW_PATH_LOGIN . 'recover.html');
+        }
+
+        function view_recover_password(){
+            common::load_view('top_page_login.html', VIEW_PATH_LOGIN . 'recover_password.html');
+        }
     
         function login() {
             echo json_encode(common::load_model('login_model', 'get_login', [$_POST['username'], $_POST['password']]));
         }
 
+        function login_SL() {
+            echo json_encode(common::load_model('login_model', 'get_login_SL', $_POST['email']));
+        }
+
         function social_login() {
-            echo json_encode(common::load_model('login_model', 'get_social_login', $_POST['profile']));
-        } 
+            echo json_encode(common::load_model('login_model', 'get_social_login', [$_POST['username'], $_POST['email'], $_POST['user_id']]));
+        }
     
         function register() {
             echo json_encode(common::load_model('login_model', 'get_register', [$_POST['username'], $_POST['email'], $_POST['password']]));
@@ -26,16 +38,11 @@
         }
 
         function send_recover_email() {
-            $result = json_encode(common::load_model('login_model', 'get_recover_email', $_POST['email']));
-
+            echo json_encode(common::load_model('login_model', 'get_recover_email', $_POST['email']));
         }
 
         function new_password() {
-            $password = json_encode(common::load_model('login_model', 'get_new_password', [$_POST['token'], $_POST['password']]));
-            if (!empty($password)) {
-                echo $password;
-                return;
-            }
+            echo json_encode(common::load_model('login_model', 'get_new_password', [$_POST['password'], $_GET['email']]));
         }  
     
         function logout() {

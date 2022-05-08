@@ -13,11 +13,18 @@
         }
 
         function count_register_email($db, $email){
-			$sql = "SELECT COUNT(u.email_user) FROM users u WHERE u.email_user='". $email ."'";
+			$sql = "SELECT COUNT(u.email_user) AS count FROM users u WHERE u.email_user='". $email ."'";
 
             $stmt = $db->ejecutar($sql);
             return $db->listar($stmt);
 		}
+
+        function register_email($db, $email) {
+            $sql = "SELECT * FROM users u WHERE u.email_user='". $email ."'";
+
+            $stmt = $db->ejecutar($sql);
+            return $db->listar($stmt);
+        }
 
         function insert_user($db, $username, $email, $hashed_pass, $avatar, $token){
             $sql ="INSERT INTO users (username, password_user, email_user, type_user, avatar_user, token_email,activate)
@@ -27,8 +34,14 @@
         }
 
         function select_user($db, $username){
-            $sql = "SELECT u.id_user, u.username, u.password_user, u.email_user, u.type_user, u.avatar_user, u.token_email, u.activate 
-            FROM users u WHERE u.username='$username'";
+            $sql = "SELECT * FROM users u WHERE u.username='$username'";
+
+            $stmt = $db->ejecutar($sql);
+            return $db->listar($stmt);
+        }
+
+        function select_user_email($db, $email){
+            $sql = "SELECT * FROM users u WHERE u.email_user='". $email ."'";
 
             $stmt = $db->ejecutar($sql);
             return $db->listar($stmt);
@@ -46,4 +59,17 @@
             
             return $db->ejecutar($sql);
         }
+
+        function update_recovery ($db, $email, $password, $token) {
+            $sql = "UPDATE users SET activate = 0, token_email='$token', password_user='$password' WHERE email_user='$email'";
+
+            return $db->ejecutar($sql);
+        }
+
+        public function insert_social_login($db, $username, $email, $id) {
+			$sql = "INSERT INTO users (username, email_user, type_user,activate)
+            VALUES ('$username','$email','client', 1)";
+
+			return $db->ejecutar($sql);
+		}
     }

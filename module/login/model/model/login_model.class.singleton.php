@@ -16,7 +16,7 @@ class login_model {
 
     public function get_register($args) {
         $result1 = $this -> bll -> get_register_email_BLL($args);
-        if($result1==0){
+        if($result1[0]['count']==0){
             $result =  $this -> bll -> get_register_BLL($args);
             return $this -> bll -> get_email_BLL($result, $args);
         } else {
@@ -26,6 +26,14 @@ class login_model {
 
     public function get_login($args) {
         return $this -> bll -> get_login_BLL($args);
+    }
+    
+    public function get_login_SL($args) {
+        return $this -> bll -> get_login_SL_BLL($args);
+    }
+
+    public function get_social_login($args) {
+        return $this -> bll -> get_social_login_BLL($args);
     }
 
     public function get_data_user($args) {
@@ -53,5 +61,20 @@ class login_model {
         if (!empty($verify)) {
             return;
         }
+    }
+
+    public function get_recover_email($args) {
+        $result1 = $this -> bll -> get_register_email_BLL($args);
+        if($result1[0]['count']==1){
+            return $this -> bll -> get_email_recover_BLL($args);
+        }
+        return 'error';
+        
+    }
+
+    public function get_new_password($args) {
+        $result = $this -> bll -> get_new_password_BLL($args);
+        
+        return $this -> bll -> get_email_BLL($result, $args);
     }
 }
