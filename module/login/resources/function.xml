@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functions>
+    <function>
+        <name>view_login</name>
+        <uri>view_login</uri>
+    </function>
+    <function>
+        <name>view_register</name>
+        <uri>view_register</uri>
+    </function>
+    <function>
+        <name>login</name>
+        <uri>login</uri>
+    </function>
+    <function>
+        <name>register</name>
+        <uri>register</uri>
+    </function>
+    <function>
+        <name>data_user</name>
+        <uri>data_user</uri>
+    </function>
+    <module>
+        <name>logout</name>
+        <uri>logout</uri>
+    </module>
+    <module>
+        <name>controluser</name>
+        <uri>controluser</uri>
+    </module>
+    <module>
+        <name>actividad</name>
+        <uri>actividad</uri>
+    </module>
+    <module>
+        <name>refresh_token</name>
+        <uri>refresh_token</uri>
+    </module>
+    <module>
+        <name>verify_email</name>
+        <uri>verify_email</uri>
+    </module>
+</functions>
