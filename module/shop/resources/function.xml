@@ -48,4 +48,8 @@
         <name>search_Menu</name>
         <uri>search_Menu</uri>
     </function>
+    <function>
+        <name>count_search_Menu</name>
+        <uri>count_search_Menu</uri>
+    </function>
 </functions>

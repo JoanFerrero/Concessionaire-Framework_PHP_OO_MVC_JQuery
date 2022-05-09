@@ -22,10 +22,6 @@
             return $this -> bll -> get_CarsFilters_BLL($args);
         }
 
-        public function get_list_searchMenu($args) {
-            return $this -> bll -> get_CarsSearchMenu_BLL($args);
-        }
-
         public function get_details($args) {
             return $this -> bll -> get_details_BLL($args);
         }
@@ -47,6 +43,18 @@
         }
         public function get_search_menu($args){
             return $this -> bll -> get_search_menu_BLL($args);
+        }
+
+        public function get_count_search_menu($args) {
+            return $this -> bll -> get_count_search_menu_BLL($args);
+        }
+
+        public function get_load_like($args){
+            return $this -> bll -> get_load_like_BLL($args);
+        }
+
+        public function get_click_like($args) {
+            return $this -> bll -> get_click_like_BLL($args);
         }
     }
 ?>

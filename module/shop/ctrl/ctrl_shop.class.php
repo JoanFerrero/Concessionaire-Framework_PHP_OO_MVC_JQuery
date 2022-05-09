@@ -14,11 +14,6 @@
                                                                                             $_POST['type'], $_POST['setting'], $_POST['category'], $_POST['order']]));
         }
 
-        function list_filters_searchMenu() {
-            echo json_encode(common::load_model('shop_model', 'get_list_searchMenu', [$_POST['items_page'], $_POST['total_prod'], $_POST['brand'], $_POST['kilometros'], 
-                                                                                      $_POST['type'], $_POST['setting'], $_POST['category'], $_POST['order']]));
-        }
-
         function pagination() {
             echo json_encode(common::load_model('shop_model', 'get_pagination'));
         }
@@ -41,16 +36,20 @@
         }
 
         function load_like() {
-            echo json_encode(common::load_model('shop_model', 'get_load_like', $_GET['user']));
+            echo json_encode(common::load_model('shop_model', 'get_load_like', $_POST['token']));
         }
 
         function click_like() {
-            echo json_encode(common::load_model('shop_model', 'get_click_like', [$_GET['id'], $_GET['user']]));
+            echo json_encode(common::load_model('shop_model', 'get_click_like', [$_POST['id'], $_POST['token']]));
+            //echo json_encode('hola');
         }
 
         function search_Menu() {
-            echo json_encode($_POST['category_search']);
-            //echo json_encode(common::load_model('shop_model', 'get_search_menu', [$_POST['items_page'],$_POST['total_prod'], $_POST['brand_search'],$_POST['category_search'], $_POST['autocom_search']]));
+            echo json_encode(common::load_model('shop_model', 'get_search_menu', [$_POST['items_page'],$_POST['total_prod'], $_POST['brand_search'],$_POST['category_search'], $_POST['autocom_search']]));
+        }
+
+        function count_search_Menu() {
+            echo json_encode(common::load_model('shop_model','get_count_search_menu',[$_POST['brand_search'],$_POST['category_search'], $_POST['autocom_search']]));
         }
     }
 ?>

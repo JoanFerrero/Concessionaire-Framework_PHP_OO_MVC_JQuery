@@ -51,8 +51,8 @@
             return $db->listar($stmt);
         }
 
-        function all_cars_filters($db, $items_page, $total_prod, $brand, $kilometros, $type, $setting, $category, $order){
-            $WHERE = self::sql_query_filters($brand, $kilometros, $type, $setting, $category, $order);
+        function all_cars_filters($db, $items_page, $total_prod, $WHERE){
+            
             $sql = "SELECT c.id, c.province, c.fecha, c.price, b.brand_name, m.model_name, t.type_name, ca.category_name, c.img_car, c.kilometres, c.lat, c.lon
                         FROM cars c
                         INNER JOIN brand b
@@ -63,6 +63,22 @@
                         ON t.id_type=c.id_type
                         INNER JOIN categories ca
                         ON ca.id_category=c.id_category " . $WHERE . " LIMIT " . $total_prod . "," . $items_page ;
+            $stmt = $db->ejecutar($sql);
+            return $db->listar($stmt);
+        }
+
+        function count_cars_filters($db, $WHERE){
+            $sql = "SELECT COUNT(*) AS n_cars
+                    FROM cars c
+                    INNER JOIN brand b
+                    ON b.id_brand=c.id_brand
+                    INNER JOIN model m
+                    ON m.id_model=c.id_model
+                    INNER JOIN type t
+                    ON t.id_type=c.id_type
+                    INNER JOIN categories ca
+                    ON ca.id_category=c.id_category " . $WHERE;
+    
             $stmt = $db->ejecutar($sql);
             return $db->listar($stmt);
         }
@@ -164,8 +180,7 @@
             return $db->listar($stmt);
         }
 
-        function select_search_menu($db,$brand, $kilometros, $type, $setting, $category, $order){
-            $WHERE = self::sql_query_filters($brand, $kilometros, $type, $setting, $category, $order);
+        function select_search_menu($db, $WHERE){
             $sql = "SELECT COUNT(*) AS n_cars
                     FROM cars c
                     INNER JOIN brand b
@@ -177,7 +192,7 @@
                     INNER JOIN categories ca
                     ON ca.id_category=c.id_category " . $WHERE;
             $stmt = $db->ejecutar($sql);
-            return $sql;
+            return $db->listar($stmt);
         }
 
         function select_count_more_related($db,$id,$category){
@@ -215,20 +230,29 @@
         function select_load_likes($db,$user){
             $sql = "SELECT l.id_vehiculo FROM likes l INNER JOIN users u WHERE u.username='$user'";
 
+            $stmt = $db->ejecutar($sql);
+            return $db->listar($stmt);
+
         }
 
         function select_likes($db,$id,$user){
             $sql = "SELECT l.id_vehiculo, u.username, u.id_user FROM likes l INNER JOIN users u ON u.id_user=l.id_usuario WHERE u.username='$user' AND l.id_vehiculo=$id";
 
+            $stmt = $db->ejecutar($sql);
+            return $db->listar($stmt);
         }
 
         function insert_likes($db,$id,$user){
             $sql = "INSERT INTO likes (id_vehiculo, id_usuario) VALUES ($id,$user)";
 
+            $db->ejecutar($sql);
+            return 'like';
         }
 
         function delete_likes($db,$id,$user){
             $sql = "DELETE FROM likes WHERE id_usuario=$user AND id_vehiculo=$id";
 
+            $db->ejecutar($sql);
+            return 'unlike';
         }
     }

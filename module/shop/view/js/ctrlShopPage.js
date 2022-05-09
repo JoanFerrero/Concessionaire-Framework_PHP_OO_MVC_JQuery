@@ -3,7 +3,6 @@ $(document).ready(function () {
     click_details();
     click_like();
     localStorage.setItem('zone', 'shop');
-    console.log(localStorage);
 });
 
 function loadContent(){ 
@@ -108,7 +107,6 @@ function loadcars(items_page = 2, total_prod = 0) {
     ajaxPromise(url,
     'POST', 'JSON', post)
     .then (function(data) {
-        console.log(data);
         for (row in data) {
             $('<div></div>').attr('class',"mt-ListAds").appendTo(".cat_cars").html(
                 "<div class='details' id='"+ data[row].id +"'>"+
@@ -135,7 +133,6 @@ function loadcars(items_page = 2, total_prod = 0) {
 
     }).catch(function() {
         console.log('error');
-    //window.location.href = 'index.php?module=exceptions&op=503&error=error_allcars';
     });  
 }
 
@@ -297,12 +294,11 @@ function load_details(){
         .addTo(map);
         
         load_more(data[0][0].category_name, data[0][0].id);
-        // load_like();
+        load_like();
 
         
     }).catch(function(){
         console.log('error');
-        //window.location.href = 'index.php?module=exceptions&op=503&error=error_onecar';
     });
 };
 
@@ -436,7 +432,7 @@ function filters() {
     localStorage.setItem('order', JSON.stringify(order));
 
     document.form_filter.submit();
-    document.form_filter.action="index.php?module=ctrl_shop&op=list";
+    document.form_filter.action="index.php?module=shop&op=view";
 }
 
 function selectFilters(){
@@ -667,7 +663,6 @@ function load_pagination(){
         });
     }).catch(function() {
         console.log('error');
-    //window.location.href = 'index.php?module=exceptions&op=503&error=error_allcars';
     });
 }
 
@@ -677,7 +672,6 @@ function load_more(category, id) {
     ajaxPromise('index.php?module=shop&op=count_more_related', 
     'POST', 'JSON', {category: category, id: id_Car})
     .then(function(data) {
-        console.log(data);
         total_items = data[0].n_cars;
         more_related(category, id_Car);
         $(document).on("click",'button.load_more', function (){
@@ -699,7 +693,6 @@ function more_related(category, id, loadeds = 0){
     ajaxPromise('index.php?module=shop&op=more_related', 
     'POST', 'JSON', {category: category, id: id, items: items, loaded: loaded})
     .then(function(data) {
-        console.log(data);
         for (row in data) {
             $('<div></div>').attr('class',"car_content").appendTo(".results").html(
                 '<div class="sui-CardArticle details" id="'+ data[row].id +'">'+
@@ -715,7 +708,6 @@ function more_related(category, id, loadeds = 0){
         }
     }).catch(function() {
         console.log('error_more_related');
-        //window.location.href = 'index.php?page=error503';
     }); 
 }
 
@@ -723,10 +715,9 @@ function load_like(){
     
     if(localStorage.getItem('token') != null){
         var token = localStorage.getItem('token');
-        ajaxPromise('module/shop/ctrl/ctrl_shop.php?op=load_likes',
+        ajaxPromise('index.php?module=shop&op=load_like',
         'POST', 'JSON', {token: token})
         .then(function(data) { 
-            console.log(data);
             for (row in data) {
                 if($("#like_"+data[row].id_vehiculo).hasClass("fa-heart_like")){
                     $("#like_"+data[row].id_vehiculo).removeClass("fa-heart_like").addClass("fxa-heart_like");
@@ -734,7 +725,6 @@ function load_like(){
             }
         }).catch(function() {
             console.log("error");
-            //window.location.href = 'index.php?page=error503'
         }); 
     }
 }
@@ -744,10 +734,9 @@ function click_like(){
         if(localStorage.getItem('token') != null){
             var id = this.getAttribute('id');
             var token = localStorage.getItem('token');
-            ajaxPromise('module/shop/ctrl/ctrl_shop.php?op=control_likes', 
+            ajaxPromise('index.php?module=shop&op=click_like', 
             'POST', 'JSON', {token: token, id: id})
             .then(function(data) { 
-                console.log(data);
             }).catch(function() {
                 console.log("error_click_like");
             });  
@@ -758,14 +747,13 @@ function click_like(){
                 $(this).children("i").removeClass("fxa-heart_like").addClass("fa-heart_like");
             }
         }else{
-            console.log("registrate");
             var time = 0;
             if (time == 0){
                 toastr["warning"]("Necesitas registrate.");
                 time++;
             }
             setInterval(function(){
-                window.location.href = "index.php?module=ctrl_login&op=login_view";
+                window.location.href = "index.php?module=login&op=view_login";
             }, 5000);
         }
     });
