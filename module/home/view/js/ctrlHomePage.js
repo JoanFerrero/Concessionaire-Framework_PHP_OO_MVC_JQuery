@@ -169,7 +169,6 @@ function getSuggestions() {
         type: 'GET',
         dataType: "json",
         url: "https://www.googleapis.com/books/v1/volumes?q=search+terms+cars",
-
     }).done(function (data) {
         var DatosJson = JSON.parse(JSON.stringify(data));
         DatosJson.items.length = limit;

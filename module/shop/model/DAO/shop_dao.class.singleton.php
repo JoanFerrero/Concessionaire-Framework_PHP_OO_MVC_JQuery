@@ -228,11 +228,10 @@
         }
 
         function select_load_likes($db,$user){
-            $sql = "SELECT l.id_vehiculo FROM likes l INNER JOIN users u WHERE u.username='$user'";
+            $sql = "SELECT l.id_vehiculo FROM likes l INNER JOIN users u ON u.id_user=l.id_usuario WHERE u.username='$user'";
 
             $stmt = $db->ejecutar($sql);
             return $db->listar($stmt);
-
         }
 
         function select_likes($db,$id,$user){

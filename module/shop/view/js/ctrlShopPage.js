@@ -160,7 +160,7 @@ function load_Map_list(data) {
 
         const ubicacion0 = data[row].lon;
         const ubicacion1 =  data[row].lat;
-
+        
         const market = new mapboxgl.Marker()
         .setLngLat([ubicacion0 , ubicacion1])
         .setPopup(popup)
@@ -718,6 +718,7 @@ function load_like(){
         ajaxPromise('index.php?module=shop&op=load_like',
         'POST', 'JSON', {token: token})
         .then(function(data) { 
+            console.log(data);
             for (row in data) {
                 if($("#like_"+data[row].id_vehiculo).hasClass("fa-heart_like")){
                     $("#like_"+data[row].id_vehiculo).removeClass("fa-heart_like").addClass("fxa-heart_like");
