@@ -48,11 +48,8 @@ function check_email() {
 function send_email(content_email) {
 	ajaxPromise("index.php?module=contact&op=send_contact_us", 'POST', 'JSON', content_email)
 	.then(function(data){
-		//Revisar el toastr
-		//toastr["warning"]("Email sended.");
 		console.log("Correo Enviado");
 	}).catch(function(error, data) {
-		//toastr["warning"]("Something happend when trying to send.");
 		console.log(error);
 	});
 }

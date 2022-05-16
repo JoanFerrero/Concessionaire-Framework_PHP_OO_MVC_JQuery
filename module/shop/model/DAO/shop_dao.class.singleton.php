@@ -105,10 +105,10 @@
             }
             if($kilometros != '"ALL"'){
                 if($num == 0) {
-                    $WHERE = $WHERE . "WHERE c.kilometres >= " . $kilometros;
+                    $WHERE = $WHERE . "WHERE c.kilometres <= " . $kilometros;
                     $num = 1;
                 }else{
-                    $WHERE = $WHERE . " AND c.kilometres >= " . $kilometros ;
+                    $WHERE = $WHERE . " AND c.kilometres <= " . $kilometros ;
                 }
             }
             if($type != '"ALL"'){

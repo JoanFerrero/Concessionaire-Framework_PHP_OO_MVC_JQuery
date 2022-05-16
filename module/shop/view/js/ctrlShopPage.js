@@ -107,6 +107,7 @@ function loadcars(items_page = 2, total_prod = 0) {
     ajaxPromise(url,
     'POST', 'JSON', post)
     .then (function(data) {
+        console.log(data);
         for (row in data) {
             $('<div></div>').attr('class',"mt-ListAds").appendTo(".cat_cars").html(
                 "<div class='details' id='"+ data[row].id +"'>"+
@@ -604,6 +605,7 @@ function removefilters(){
     $(".texto_higtlike").empty();
     $(".Delete_hisgtlike").empty();
     loadfilters(); 
+    load_pagination();
     highlightFilters();
 }
 
