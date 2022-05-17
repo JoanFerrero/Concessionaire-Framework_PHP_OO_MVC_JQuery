@@ -31,7 +31,6 @@ function key_recover(){
     });
 }
 
-
 function recover_password() {
     if(validate_recover_password() != 0){
         var data = $('#recover_password_form').serialize();
@@ -43,14 +42,9 @@ function recover_password() {
         ajaxPromise('index.php?module=login&op=new_password&email='+email, 
         'POST', 'JSON', data)    
         .then(function(result) {
-            console.log(result);
-            if(result == "error"){		
-                $("#error_email").html('Email no registrado');
-            } else {
-                toastr["warning"]("Email enviado.");
-            }
+            setTimeout(' window.location.href = "index.php?module=login&op=view_login"; ',1000);
         }).catch(function() {
-           //window.location.href = 'index.php?module=exceptions&op=503&error=error_register'; 
+           console.log('error');
         });    
     }
 }
@@ -64,7 +58,9 @@ function recover(){
             console.log(result);
             if(result == "error"){		
                 $("#error_email").html('Email no registrado');
-            } else {
+            } else if(result == "error_recover"){
+                $("#error_email").html('Email Social Login');
+            }else {
                 toastr["warning"]("Email enviado.");
             }
         }).catch(function() {

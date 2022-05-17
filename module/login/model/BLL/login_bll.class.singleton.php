@@ -140,14 +140,19 @@
 		}
 
 		public function get_email_recover_BLL($args) {
-			if($args){
-				$message = [ 'type' => 'recover', 
-							 'token' => $args, 
-							 'toEmail' => $args];
-				$email = json_encode(mail::send_email($message), true);
-				return $email;
-			}else{
-				return "fail";
+			$password = $this -> dao -> select_user_email_password($this->db, $args);
+			if(!$password[0]['password_user']){
+				return 'error_recover';
+			} else {
+				if($args){
+					$message = [ 'type' => 'recover', 
+								'token' => $args, 
+								'toEmail' => $args];
+					$email = json_encode(mail::send_email($message), true);
+					return $email;
+				}else{
+					return "fail";
+				}
 			}
 		}
 

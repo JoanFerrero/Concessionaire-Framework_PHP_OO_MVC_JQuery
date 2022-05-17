@@ -72,4 +72,11 @@
 
 			return $db->ejecutar($sql);
 		}
+
+        public function select_user_email_password($db, $email) {
+            $sql = "SELECT `password_user` FROM users WHERE email_user='$email'";
+
+            $stmt = $db->ejecutar($sql);
+            return $db->listar($stmt);
+        }
     }

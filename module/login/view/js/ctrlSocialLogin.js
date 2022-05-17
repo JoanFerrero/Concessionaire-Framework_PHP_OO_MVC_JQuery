@@ -10,18 +10,6 @@ function button_log_google() {
     });
 }
 
-function button_log_github() {
-    $('#log_github').on('click', function(e) {
-        var authService = firebase.auth();
-        var provider = new firebase.auth.GithubAuthProvider();
-        authService.signInWithPopup(provider)
-            .then(function(data) {
-                login_social(data);
-            }).catch(function() {
-                console.log('error');
-            });
-    });
-}
 function button_login_google(){
     $('#login_google').on('click', function(e) {
         var authService = firebase.auth();
@@ -61,6 +49,7 @@ function login_social(user_data) {
     ajaxPromise('index.php?module=login&op=social_login', 
     'POST', 'JSON', { 'username': username, 'email': email, 'user_id': user_id, })
     .then(function(data) {
+        console.log(data);
         if (data == 'error') {
             toastr["warning"]("Ese email ya esta registrado.");
         } else {
@@ -77,7 +66,6 @@ function login_social(user_data) {
 
 $(document).ready(function() {
     button_log_google();
-    button_log_github();
     button_login_google();
 
     var config = {
