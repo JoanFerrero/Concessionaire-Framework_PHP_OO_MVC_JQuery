@@ -32,9 +32,9 @@
 <h2 dir="auto">Technologies used</h2>
 <p dir="auto">List of technologies used in this project:</p>
 <ul dir="auto">
-<li><a href="https://www.php.net/manual/es/intro-whatis.php" rel="nofollow">PHP</a></li>
+<li><a href="https://www.php.net/manual/es/intro-whatis.php" rel="nofollow">PHP:</a> Version 8.0.13</li>
 <li><a href="https://developer.mozilla.org/es/docs/Web/JavaScript" rel="nofollow">JavaScript</a></li>
-<li><a href="https://jquery.com/" rel="nofollow">JQuery</a></li>
+<li><a href="https://angularjs.org/" rel="nofollow">AngularJS</a></li>
 <li><a href="https://www.mysql.com/" rel="nofollow">MySQL</a></li>
 </ul>
 <h2 dir="auto">Libraries used</h2>
@@ -44,4 +44,6 @@
 <li><a href="https://getbootstrap.com/" rel="nofollow">Boostrap</a></li>
 <li><a href="https://developers.google.com/books" rel="nofollow">Google Books API</a></li>
 <li><a href="https://docs.mapbox.com/mapbox.js/api/v3.3.1/" rel="nofollow">Map Box API</a></li>
+<li><a href="https://firebase.google.com/?gclid=CjwKCAjwy_aUBhACEiwA2IHHQJQy7xT1XD6BOGJLrfTesNafAdHO8Z48rGYe4ggyZP-fP4kD4JVZLBoC51wQAvD_BwE&amp;gclsrc=aw.ds" rel="nofollow">Firebase</a></li>
+<li><a href="https://www.mailgun.com/es/" rel="nofollow">Mailgun</a></li>
 </ul>
